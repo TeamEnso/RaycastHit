@@ -1,0 +1,66 @@
+using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
+
+public class RaycastGameobjDetect : MonoBehaviour
+{
+    public GameObject Player;
+/*  public GameObject NavMenu; 
+    public GameObject test;
+    public float Speed;
+    public Component makeVisible;
+    public Collider NavMenuCollider;
+
+    void Awake()
+        {
+
+        }
+
+    void Start()
+        {
+
+        }
+
+*/
+
+    void Update()
+    {
+        // Releasing Ray until collision with "Default" tagged object
+        Vector3 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2, Camera.main.nearClipPlane);
+        Ray newRay = new Ray(Camera.main.ScreenToWorldPoint(screenCenter), transform.forward);
+
+        // Making the ray visible in scene mode for testing
+        Debug.DrawRay(Camera.main.ScreenToWorldPoint(screenCenter), transform.forward);
+        
+        // Raycast Hit Return Data on NavMenu     
+        RaycastHit hit;
+        if (Physics.Raycast(newRay, out hit)) // Add GameObjects to Layer Ignore Raycast to Ignore detection
+        {
+            print("The player has detected NavMenu");
+            float d = hit.distance;
+            print(d);
+
+            // Move Player in the forward direction on RaycastHit Gameobject in deltaTime
+            float time = Time.deltaTime;
+            Player.transform.position += Camera.main.transform.forward * time;
+            //Vector3 move = new Vector3(0.0f, 0.0f, d++);                            
+        }
+
+        else
+        {
+            print("The player is not looking at the NavMenu");
+        };
+
+        // Raycast Hit Return Data on TestObject
+        /* RaycastHit test;
+        if (Physics.Raycast(newRay, out test))
+        {
+            print("The player has detected test object");
+        }
+        else
+        {
+            print("The player is not looking at the testobject");
+        };*/
+    }
+
+}
